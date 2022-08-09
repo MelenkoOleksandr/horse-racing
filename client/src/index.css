@@ -9,3 +9,7 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+h6 {
+  margin: 0;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 import './App.css';
 import Horses from './components/Horses';
@@ -9,12 +9,17 @@ export const MAX_DISTANCE = 1000
 function App() {
   const io = useContext(SocketIOContext)
   const [horses, setHorses] = useState([])
+  const [winner, setWinner] = useState(-1)
 
   const startRace = () => {
     io.emit("start")
     io.on("ticker", horses => {
       if (horses.every(horse => horse.distance === MAX_DISTANCE)) {
         io.off("ticker")
+      }
+      const winnerIndex = horses.findIndex(horse => horse.distance >= MAX_DISTANCE)
+      if (winner !== -1 || winnerIndex) {
+        setWinner(winnerIndex)
       }
       setHorses(horses)
     })
@@ -25,8 +30,15 @@ function App() {
         <h3 className='greeting-title'>Welcome to the horse race!</h3>
         <button className='start-btn' onClick={startRace}>Start race</button>
       </div>
+     
       
-      <Horses horses={horses}/>
+      {horses.length > 0 && <div className="horses-field">
+        <Horses horses={horses} />
+      </div>}
+      {winner !== -1 && <div className="winner">
+        Winner is <span className='winner-name'>{horses[winner].name}</span>
+      </div>}
+
     </div>
   );
 }
