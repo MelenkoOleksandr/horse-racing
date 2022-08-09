@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import React, { useState, useEffect, useContext } from 'react';
+
 import './App.css';
+import Horses from './components/Horses';
+import { SocketIOContext } from './index';
+
+export const MAX_DISTANCE = 1000
 
 function App() {
+  const io = useContext(SocketIOContext)
+  const [horses, setHorses] = useState([])
+
+  const startRace = () => {
+    io.emit("start")
+    io.on("ticker", horses => {
+      if (horses.every(horse => horse.distance === MAX_DISTANCE)) {
+        io.off("ticker")
+      }
+      setHorses(horses)
+    })
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React.
-        </a>
-      </header>
+    <div className="container">
+      <div className="greeting">
+        <h3 className='greeting-title'>Welcome to the horse race!</h3>
+        <button className='start-btn' onClick={startRace}>Start race</button>
+      </div>
+      
+      <Horses horses={horses}/>
     </div>
   );
 }
