@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { MAX_DISTANCE } from "../App";
+import { MAX_DISTANCE } from "../../App";
 
-import horseImg from "../assets/horse.png";
+import horseImg from "../../assets/horse.png";
 import "./Horse.css";
 
 const Horse = ({ horse }) => {
