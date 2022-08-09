@@ -8,14 +8,17 @@ export const MAX_DISTANCE = 1000
 
 function App() {
   const io = useContext(SocketIOContext)
+  const [raceStarted, setRaceStarted] = useState(false)
   const [horses, setHorses] = useState([])
   const [winner, setWinner] = useState(-1)
 
   const startRace = () => {
+    setRaceStarted(true)
     io.emit("start")
     io.on("ticker", horses => {
       if (horses.every(horse => horse.distance === MAX_DISTANCE)) {
         io.off("ticker")
+        setRaceStarted(false)
       }
       const winnerIndex = horses.findIndex(horse => horse.distance >= MAX_DISTANCE)
       if (winner !== -1 || winnerIndex) {
@@ -28,7 +31,7 @@ function App() {
     <div className="container">
       <div className="greeting">
         <h3 className='greeting-title'>Welcome to the horse race!</h3>
-        <button className='start-btn' onClick={startRace}>Start race</button>
+        <button disabled={raceStarted} className='start-btn' onClick={startRace}>Start race</button>
       </div>
      
       
