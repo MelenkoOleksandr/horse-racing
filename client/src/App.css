@@ -1,14 +1,26 @@
+@keyframes greeting-letters {
+  0% {
+    letter-spacing: 1px;
+  }
+  50% {
+    letter-spacing: 5px;
+  }
+  100% {
+    letter-spacing: 1px;
+  }
+}
+
 .container {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 50px;
+  padding: 0;
   width: 900px;
 }
 
 .greeting {
-  width: 60%;
+  width: 80%;
   flex-direction: column;
   display: flex;
   align-items: center;
@@ -16,8 +28,24 @@
   margin-bottom: 20px;
 }
 
+.user-warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
 .greeting-title {
   font-size: 36px;
+  letter-spacing: 1px;
+  margin-bottom: 00px;
+  transition: 0.3s;
+  animation: greeting-letters;
+  animation-duration: 2s;
+  animation-iteration-count: 3
 }
 
 .start-btn {
@@ -54,4 +82,25 @@
 
 .winner-name {
   color: red;
+}
+
+.user-choice__container {
+  width: 100%;
+  text-align: center;
+  display: flex;align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.user-choice {
+  font-size: 20px;
+  margin: 20px 0;
+}
+.user-choice span{
+  color:red;
+}
+
+.user-result {
+  font-size: 28px;
+  font-weight: bold;
 }

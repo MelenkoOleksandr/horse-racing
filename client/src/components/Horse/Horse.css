@@ -29,6 +29,6 @@
     color: rgb(255, 0, 0);
 }
 
-.horse:last-child, .horse:first-child {
-    
+.horse.selected {
+    background-color: #349a90;
 }

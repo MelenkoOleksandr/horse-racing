@@ -8,6 +8,7 @@ import Winner from './components/Winner/Winner';
 import { allHorsesFinishedRace, findWinnerIndex } from './utils/race';
 
 import './App.css';
+import UserChoice from './components/UserChoice/UserChoice';
 
 export const MAX_DISTANCE = 1000
 
@@ -25,16 +26,19 @@ function App() {
         return
       }
 
-      const winnerIndex = findWinnerIndex(horses)
-      if (winner !== -1 || winnerIndex) {
-        dispatch(setWinner(winnerIndex))
+      
+      if (winner === -1 ) {
+        const winnerIndex = findWinnerIndex(horses)
+        if (winnerIndex !== -1) {
+          dispatch(setWinner(winnerIndex))
+        }
       }
 
       return () => {
         socket.off('ticker')
       }
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const startRace = () => {
@@ -47,6 +51,7 @@ function App() {
       <Greeting startRace={startRace} />
       <Horses />
       <Winner />
+      <UserChoice />
     </div>
   );
 }
