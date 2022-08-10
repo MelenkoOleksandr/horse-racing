@@ -1,50 +1,51 @@
-import React, { useState, useContext, useEffect } from 'react';
-
-import './App.css';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { socket } from './index';
+import { setHorses, setRaceStarted, setWinner } from './store/raceSlice/raceSlice';
 import Greeting from './components/Greeting/Greeting';
 import Horses from './components/Horses';
 import Winner from './components/Winner/Winner';
-import { SocketIOContext } from './index';
 import { allHorsesFinishedRace, findWinnerIndex } from './utils/race';
+
+import './App.css';
 
 export const MAX_DISTANCE = 1000
 
 function App() {
-  const io = useContext(SocketIOContext)
-  const [raceStarted, setRaceStarted] = useState(false)
-  const [horses, setHorses] = useState([])
-  const [winner, setWinner] = useState(-1)
+  const dispatch = useDispatch()
+  const winner = useSelector(state => state.winner)
 
   useEffect(() => {
-    io.on('ticker', horses => {
-      setHorses(horses)
+    socket.on('ticker', horses => {
+      dispatch(setHorses(horses))
 
       if (allHorsesFinishedRace(horses)) {
-        setRaceStarted(false)
+        // If the server will be fixed to multiple races | now app works correctly only on the first time then listeners stacks 
+        // dispatch(setRaceStarted(false))
         return
       }
 
       const winnerIndex = findWinnerIndex(horses)
       if (winner !== -1 || winnerIndex) {
-        setWinner(winnerIndex)
+        dispatch(setWinner(winnerIndex))
       }
 
       return () => {
-        io.off('ticker')
+        socket.off('ticker')
       }
     })
   }, [])
 
   const startRace = () => {
-    io.emit("start")
-    setRaceStarted(true)
+    socket.emit("start")
+    dispatch(setRaceStarted(true))
   }
+
   return (
     <div className="container">
-      <Greeting raceStarted={raceStarted} startRace={startRace}/>
-      {horses.length > 0 && <Horses horses={horses} />}
-      {winner !== -1 && <Winner winnerName={horses[winner].name} />}
-
+      <Greeting startRace={startRace} />
+      <Horses />
+      <Winner />
     </div>
   );
 }
