@@ -13,6 +13,11 @@ exports[`App renders 1`] = `
       >
         Welcome to the horse race!
       </h3>
+      <h5
+        class="user-warning"
+      >
+        You can select the horse after the race is started but do it before 700m
+      </h5>
       <button
         class="start-btn"
         data-testid="greeting-btn"

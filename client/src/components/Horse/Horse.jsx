@@ -16,6 +16,7 @@ const Horse = ({ horse, horseIndex }) => {
   };
   return (
     <div
+    data-testid="horse"
       onClick={selectHorse}
       className={`horse 
         ${horse.distance === MAX_DISTANCE ? "stopped" : ""}

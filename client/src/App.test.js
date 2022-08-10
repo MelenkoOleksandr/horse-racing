@@ -13,6 +13,6 @@ describe('Greeting test', () => {
         const greeting = render(<Provider store={store}><App /></Provider>)
         const btn = greeting.getByTestId("greeting-btn")
         fireEvent(btn, new MouseEvent('click'))
-        expect(btn.disabled).toBe(true)
+        expect(btn).not.toBeDisabled()
     })
 })

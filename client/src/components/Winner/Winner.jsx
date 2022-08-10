@@ -6,7 +6,7 @@ const Winner = () => {
 
   return (
     winner !== -1 && (
-      <div className="winner">
+      <div data-testid="winner" className="winner">
         Winner is <span className="winner-name">{horses[winner].name}</span>
       </div>
     )

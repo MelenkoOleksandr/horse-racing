@@ -7,14 +7,15 @@ const UserChoice = () => {
 
   return (
     userChoice !== -1 && (
-      <div className="user-choice__container">
+      <div data-testid="user-choice" className="user-choice__container">
         <div className="user-choice">
           You selected <span>{horses[userChoice].name}</span>
         </div>
-        <div className="user-result">
-          {allHorsesFinishedRace(horses) &&
-            (winner === userChoice ? "Congratulations!" : "Try next time")}
-        </div>
+        {allHorsesFinishedRace(horses) && (
+          <div data-testid="user-result" className="user-result">
+            {winner === userChoice ? "Congratulations!" : "Try next time"}
+          </div>
+        )}
       </div>
     )
   );

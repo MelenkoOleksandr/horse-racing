@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { socket } from './index';
+import { io } from 'socket.io-client';
 import { setHorses, setRaceStarted, setWinner } from './store/raceSlice/raceSlice';
 import Greeting from './components/Greeting/Greeting';
 import Horses from './components/Horses';
 import Winner from './components/Winner/Winner';
 import { allHorsesFinishedRace, findWinnerIndex } from './utils/race';
-
-import './App.css';
 import UserChoice from './components/UserChoice/UserChoice';
 
+import './App.css';
+
 export const MAX_DISTANCE = 1000
+export const socket = io('http://localhost:3002')
 
 function App() {
   const dispatch = useDispatch()
