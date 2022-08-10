@@ -2,9 +2,11 @@
   0% {
     letter-spacing: 1px;
   }
+
   50% {
     letter-spacing: 5px;
   }
+
   100% {
     letter-spacing: 1px;
   }
@@ -39,6 +41,7 @@
 }
 
 .greeting-title {
+  text-align: center;
   font-size: 36px;
   letter-spacing: 1px;
   margin-bottom: 00px;
@@ -57,6 +60,7 @@
   color: rgb(249, 246, 246);
   background-color: #8cc28c;
 }
+
 .start-btn:hover {
   background-color: #97d297;
   box-shadow: 0 0 5px black;
@@ -67,6 +71,7 @@
   cursor: default;
   box-shadow: none;
 }
+
 .horses-field {
   width: 100%;
   min-height: 80%;
@@ -87,7 +92,8 @@
 .user-choice__container {
   width: 100%;
   text-align: center;
-  display: flex;align-items: center;
+  display: flex;
+  align-items: center;
   justify-content: center;
   flex-direction: column;
 }
@@ -96,11 +102,57 @@
   font-size: 20px;
   margin: 20px 0;
 }
-.user-choice span{
-  color:red;
+
+.user-choice span {
+  color: red;
 }
 
 .user-result {
   font-size: 28px;
   font-weight: bold;
+}
+@media (max-width: 992px) {
+  .container {
+    width: 550px;
+  }
+}
+
+
+@media (max-width: 576px) {
+  .container {
+    width: 100%;
+  }
+  .greeting {
+    width: 100%;
+  }
+  .horses-field {
+    width: 100%;
+    border: none;
+  }
+
+  .greeting-title {
+    font-size: 24px;
+    animation:none;
+  }
+
+  .user-warning {
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0 20px;
+  }
+
+  .start-btn {
+    padding: 10px 25px;
+    font-size: 14px;
+  }
+  .winner {
+    font-size: 24px;
+  }
+  .user-choice {
+    margin: 10px 0;
+  }
+  .user-result {
+    font-size: 24px;
+  }
 }
